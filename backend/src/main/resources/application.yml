@@ -3,6 +3,8 @@ spring:
     name: smartmerge
   profiles:
     active: dev
+  config:
+    import: optional:classpath:application-secrets.yml
   ai:
     openai:
       api-key: ${openai.api-key}
@@ -20,9 +22,9 @@ spring:
               - read:user
               - user:email
   datasource:
-    url: ${postgres.url}
-    username: ${postgres.name}
-    password: ${postgres.password}
+    url: ${smartmerge.db.url}
+    username: ${smartmerge.db.username}
+    password: ${smartmerge.db.password}
   jpa:
     hibernate:
       ddl-auto: update

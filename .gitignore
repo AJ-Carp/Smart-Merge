@@ -59,3 +59,6 @@ build/
 .vscode/*
 !.vscode/extensions.json
 .DS_Store
+
+######### Documentation #########
+BUILD_PLAN.md
