@@ -3,10 +3,9 @@ package com.smartmerge.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.smartmerge.model.Account;
 import com.smartmerge.repository.AccountRepository;
-
+import com.smartmerge.util.TokenService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -14,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class Test {
 
     private final AccountRepository accountRepository;
+    private final TokenService tokenService;
 
     @GetMapping("/hello")
     public String hello() {

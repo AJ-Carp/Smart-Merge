@@ -9,6 +9,7 @@ import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.List;
+import java.util.Map;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERNull;
@@ -16,14 +17,9 @@ import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import org.springframework.web.client.RestClient;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Base64;
@@ -35,27 +31,23 @@ public class TokenService {
     @Value("${github.appId}")
     String appId;
 
-    @Value("${github.key}")
+    @Value("${github.keyPath}")
     String keyPath;
     
-    public String getInstallationToken(String url) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        String jwtToken = generateJwt();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", "application/vnd.github+json");
-        headers.set("Authorization", "Bearer " + jwtToken);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(
-            url,
-            HttpMethod.POST,
-            entity,
-            String.class
-        );
-        JsonObject jsonObject = JsonParser.parseString(response.getBody()).getAsJsonObject();
-        return jsonObject.get("token").getAsString();
-
+    public String getInstallationToken(String url) {
+        try {
+            String jwtToken = generateJwt();
+            Map<String, Object> installationTokenData = RestClient.create()
+                .post()
+                .uri(url)
+                .header("Authorization", "Bearer " + jwtToken)
+                .header("Accept", "application/vnd.github+json")
+                .retrieve()
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+            return installationTokenData.get("token").toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to retrieve installation token");
+        }
     }
 
     public String generateJwt() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {

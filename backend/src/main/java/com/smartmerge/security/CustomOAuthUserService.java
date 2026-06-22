@@ -4,17 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 import lombok.extern.slf4j.Slf4j;
 import static com.smartmerge.smartMergeConstants.GITHUB_EMAIL_ENDPOINT;
 
@@ -50,21 +46,14 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
 
     private void getUserEmail(String tokenValue, Map<String, Object> userAttributes) {
         try {
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(HttpHeaders.AUTHORIZATION, "token " + tokenValue);
-            httpHeaders.set(HttpHeaders.ACCEPT, GITHUB_REQUEST_BODY_TYPE);
-            HttpEntity<Void> httpEntity = new HttpEntity<>(httpHeaders);
+            List<Map<String, Object>> emails = RestClient.create()
+                .get()
+                .uri(GITHUB_EMAIL_ENDPOINT)
+                .header("Authorization", "Bearer " + tokenValue)
+                .header("Accept", GITHUB_REQUEST_BODY_TYPE)
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
 
-            ResponseEntity<List<Map<String, Object>>> response  = restTemplate.exchange(
-                GITHUB_EMAIL_ENDPOINT,
-                HttpMethod.GET,
-                httpEntity,
-                new ParameterizedTypeReference<List<Map<String, Object>>>() {}
-
-            );
-
-            List<Map<String, Object>> emails = response.getBody();
             if (emails.isEmpty()) {
                 return;
             }

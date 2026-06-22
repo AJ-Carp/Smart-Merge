@@ -44,4 +44,4 @@ server:
 
 github:
   appId: ${github.appId}
-  key: ${github.key}
+  keyPath: ${github.key}
