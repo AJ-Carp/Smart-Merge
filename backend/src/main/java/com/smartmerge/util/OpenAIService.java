@@ -18,26 +18,15 @@ public class OpenAIService {
     private final String systemPrompt = "You are a senior engineer. First provide a summary of what was done so that the engineer knows you understand the changes properly." +
                                         "Then review the files looking for bugs and stylistic issues. Feel free to make any suggestions.\n\n" +
                                         "Each file is contained by a main block (enclosed by equal signs). Within each main block, the files are seperated into three " + 
-                                        "smaller blocks (enclosed by hyphens): File Path, File Contents, and File Patch. \n\nAdditionally, if you would like to make any inline " +
-                                        "comments, please provide the file path, the position, and your comment at the very bottom of your response.\nDo not add any kind of title for the "+
-                                        "inline comments section. Just begin listing them and make the format exactly as follows:\n" +
+                                        "smaller blocks (enclosed by hyphens): File Path, File Contents, and File Patch (what has been changed). \n\nAdditionally, if you would like to make any inline " +
+                                        "comments, please provide the file path, the line of the file you are commenting on (use the line number from the File Contents block, counting line 1 as the first line below \"...---File Contents---...\"."+
+                                        "Only comment on lines that are visible in the File Patch.), and your comment at the very bottom of your response.\nDo not add any kind of title for the "+
+                                        "inline comments section, as this section will be parsed programatically. Just begin listing them and make the format exactly as follows:\n" +
 
                                         "INLINE_COMMENT: src/main/java/Counter.java | 3 | I suggest replacing this code with for (int i = 0; ...) because ...\n" +
-                                        "INLINE_COMMENT: src/main/java/Animal.java | 16 | This variable name is confusing because ...\n\n" +
+                                        "INLINE_COMMENT: src/main/java/Animal.java | 16 | This variable name is confusing because ...";
                                         
-                                        "Read this to understand the position: Each file in the pull request has a patch string showing what changed (---File Patch---). When making an inline comment, "+ 
-                                        "you must provide a position — the line index within that file's patch. Count starting at 1 from the line immediately below the \"@@ ... @@\" hunk header. "+ 
-                                        "Every line increments the count: context lines (leading space), added lines (+), and deleted lines (-). \"\\ No newline at end of file\" annotations " +
-                                        "also increment the count but must never be used as a comment target. Positions reset to 1 for each new file's patch.\nExample:\n" +
-
-                                        "@@ -2,4 +2,4 @@                  ← NOT counted\n" +
-                                        "(blank)                          ← position 1\n" +
-                                        "new test pr                      ← position 2\n" +
-                                        "(blank)                          ← position 3\n" +
-                                        "-old value                       ← position 4\n" +
-                                        "\\ No newline at end of file      ← position 5  (count it, but never target it)\n" +
-                                        "+new value                       ← position 6  ← valid comment target\n" +
-                                        "\\ No newline at end of file      ← position 7  (count it, but never target it)";
+                                    
 
     public OpenAIService(OpenAiChatModel openAiChatModel) {
         chatClient = ChatClient.create(openAiChatModel);

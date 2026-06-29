@@ -30,14 +30,8 @@ public class CommentDTO {
     @NoArgsConstructor
     public static class Comments {
         String path;
-        int position;
+        int line;
+        String side;
         String body;
     }
 }
-
-// comments example:
-// comments":[
-//      {"path": "smart-merge-test/README.md",
-//      "position": 5,
-//      "body": "another comment test at a specific location"}
-// ]

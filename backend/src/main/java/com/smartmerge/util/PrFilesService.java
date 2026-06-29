@@ -2,6 +2,9 @@ package com.smartmerge.util;
 
 import static com.smartmerge.SmartMergeConstants.GITHUB_BASE_URL;
 import static com.smartmerge.SmartMergeConstants.GITHUB_REQUEST_BODY_TYPE;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +12,9 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class PrFilesService {
     
@@ -57,9 +62,24 @@ public class PrFilesService {
             // returns base64
             String encodedContent = (String)response.get("content");
             String decodedContent = new String(java.util.Base64.getMimeDecoder().decode(encodedContent));
-            fileContents.add(decodedContent);
+            String fileContent = addLineNumbers(decodedContent);
+            fileContents.add(fileContent);
         }
         return fileContents;
+    }
+
+    // adding line numbers so AI dosnt have to count lines inline comments. Improves accuracy
+    private String addLineNumbers(String fileContent) {
+        StringBuilder numberedFileContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new StringReader(fileContent))) {
+            String line;
+            for (int i = 1; ((line = reader.readLine()) != null); i++) {
+                numberedFileContent.append(i).append(": ").append(line).append("\n");
+            }
+        } catch (IOException e) {
+            log.error("Error adding line numbers to file contents", e);
+        }
+        return numberedFileContent.toString();
     }
 
     public List<String[]> packageForReview(List<String> patches, List<String> filesContents, List<Map<String, Object>> fileData) {

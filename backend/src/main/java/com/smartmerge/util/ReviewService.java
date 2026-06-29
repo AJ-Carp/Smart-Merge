@@ -35,7 +35,8 @@ public class ReviewService {
         for (String[] commentArray : inlineComments) {
             comments.add(CommentDTO.Comments.builder()
                 .path(commentArray[0])
-                .position(Integer.parseInt(commentArray[1]))
+                .line(Integer.parseInt(commentArray[1]))
+                .side("RIGHT")
                 .body(commentArray[2])
                 .build());
         }
