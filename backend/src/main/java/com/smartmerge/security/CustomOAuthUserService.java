@@ -10,15 +10,17 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import com.smartmerge.util.GithubServiceCaller;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import static com.smartmerge.SmartMergeConstants.GITHUB_EMAIL_ENDPOINT;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomOAuthUserService extends DefaultOAuth2UserService {
     
-    private final String GITHUB_REQUEST_BODY_TYPE = "application/vnd.github+json";
+    private final GithubServiceCaller githubServiceCaller;
 
     /* when user logs in via github, github sends back info (attributes) about them. If the info does 
        not contain the email (because it was set to private) then we fetch it from githubs api and add 
@@ -46,13 +48,7 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
 
     private void getUserEmail(String tokenValue, Map<String, Object> userAttributes) {
         try {
-            List<Map<String, Object>> emails = RestClient.create()
-                .get()
-                .uri(GITHUB_EMAIL_ENDPOINT)
-                .header("Authorization", "Bearer " + tokenValue)
-                .header("Accept", GITHUB_REQUEST_BODY_TYPE)
-                .retrieve()
-                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+            List<Map<String, Object>> emails = githubServiceCaller.get(GITHUB_EMAIL_ENDPOINT, tokenValue, new ParameterizedTypeReference<List<Map<String, Object>>>() {});
 
             if (emails.isEmpty()) {
                 return;

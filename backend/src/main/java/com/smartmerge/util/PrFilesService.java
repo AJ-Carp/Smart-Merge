@@ -1,7 +1,6 @@
 package com.smartmerge.util;
 
 import static com.smartmerge.SmartMergeConstants.GITHUB_BASE_URL;
-import static com.smartmerge.SmartMergeConstants.GITHUB_REQUEST_BODY_TYPE;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -10,32 +9,19 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PrFilesService {
+
+    private final GithubServiceCaller githubServiceCaller;
     
     public List<Map<String, Object>> getFiles(String accessToken, String repoOwner, String repoName, int pullNumber) {
-        List<Map<String, Object>> response = RestClient.create()
-            .get()
-            .uri(GITHUB_BASE_URL + "/repos/" + repoOwner + "/" + repoName + "/pulls/" + pullNumber + "/files")
-            .header("Authorization", "Bearer " + accessToken)
-            .header("Accept", GITHUB_REQUEST_BODY_TYPE)
-            .retrieve()
-            .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
-
-        // making json repsonse legible for development purposes
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            String legibleJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(response);
-            System.out.println(legibleJson);
-        } catch (Exception e) {
-            System.out.println("error processing JSON");
-        }
-        return response;
+        String uri = GITHUB_BASE_URL + "/repos/" + repoOwner + "/" + repoName + "/pulls/" + pullNumber + "/files";
+        return githubServiceCaller.get(uri, accessToken, new ParameterizedTypeReference<List<Map<String,Object>>>() {});
     }
 
     public List<String> extractPatches(List<Map<String, Object>> fileData) {
@@ -51,14 +37,7 @@ public class PrFilesService {
         List<String> fileContents = new ArrayList<>();
         for (Map<String, Object> data : fileData) {
             String contentsUrl = (String)data.get("contents_url");
-            Map<String, Object> response = RestClient.create()
-                .get()
-                // prevents spring from changing encoding
-                .uri(java.net.URI.create(contentsUrl))
-                .header("Authorization", "Bearer " + accessToken)
-                .header("Accept", GITHUB_REQUEST_BODY_TYPE)
-                .retrieve()
-                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+            Map<String, Object> response = githubServiceCaller.get(contentsUrl, accessToken, new ParameterizedTypeReference<Map<String, Object>>() {});
             // returns base64
             String encodedContent = (String)response.get("content");
             String decodedContent = new String(java.util.Base64.getMimeDecoder().decode(encodedContent));
@@ -68,7 +47,7 @@ public class PrFilesService {
         return fileContents;
     }
 
-    // adding line numbers so AI dosnt have to count lines inline comments. Improves accuracy
+    // adding line numbers so AI dosnt have to count lines to make inline comments. Improves accuracy
     private String addLineNumbers(String fileContent) {
         StringBuilder numberedFileContent = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new StringReader(fileContent))) {
@@ -82,15 +61,15 @@ public class PrFilesService {
         return numberedFileContent.toString();
     }
 
-    public List<String[]> packageForReview(List<String> patches, List<String> filesContents, List<Map<String, Object>> fileData) {
-        List<String[]> fullFileContent = new ArrayList<>();
+    public List<String[]> packageForReview(List<Map<String, Object>> fileData, List<String> filesContents, List<String> patches) {
+        List<String[]> packagedFileContent = new ArrayList<>();
         for (int i = 0; i < fileData.size(); i++) {
             String[] subList = new String[3];
             subList[0] = (String)fileData.get(i).get("filename");
             subList[1] = filesContents.get(i);
             subList[2] = patches.get(i);
-            fullFileContent.add(subList);
+            packagedFileContent.add(subList);
         }
-        return fullFileContent;
+        return packagedFileContent;
     }
 }

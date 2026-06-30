@@ -79,6 +79,7 @@ public class OpenAIService {
         return mainReview.toString();
     }
 
+    // turn each inline comment that AI decided to make into a list of 3: [filePath, line, comment]
     public List<String[]> parseInlineComments(String response) {
         List<String[]> inlineComments = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new StringReader(response))) {

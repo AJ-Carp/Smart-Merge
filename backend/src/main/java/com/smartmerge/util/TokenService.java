@@ -19,13 +19,14 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import java.util.Base64;
 import java.util.Date;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService {
     
     @Value("${github.appId}")
@@ -33,17 +34,13 @@ public class TokenService {
 
     @Value("${github.keyPath}")
     String keyPath;
+
+    private final GithubServiceCaller githubServiceCaller;
     
     public String getInstallationToken(String url) {
         try {
             String jwtToken = generateJwt();
-            Map<String, Object> installationTokenData = RestClient.create()
-                .post()
-                .uri(url)
-                .header("Authorization", "Bearer " + jwtToken)
-                .header("Accept", "application/vnd.github+json")
-                .retrieve()
-                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+            Map<String, Object> installationTokenData = githubServiceCaller.post(url, jwtToken, null, new ParameterizedTypeReference<Map<String, Object>>() {});
             return installationTokenData.get("token").toString();
         } catch (Exception e) {
             throw new RuntimeException("Failed to retrieve installation token");

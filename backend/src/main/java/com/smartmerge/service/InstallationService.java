@@ -1,6 +1,7 @@
 package com.smartmerge.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import com.smartmerge.model.Installation;
 import com.smartmerge.model.Repo;
@@ -20,6 +21,11 @@ public class InstallationService {
 
     public Installation saveInstallation(Installation installation) {
         return installationRepository.save(installation);
+    }
+
+    public Installation getInstallation(int id) {
+        return installationRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("installation not found"));
     }
 
     public void deleteInstallationById(int id) {
