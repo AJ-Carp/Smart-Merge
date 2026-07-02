@@ -39,7 +39,7 @@ public class GithubWebhooks {
         );
     }
 
-    @PostMapping("/github")
+    @PostMapping
     public void handleEvent(@RequestBody Map<String, Object> payload) {
         String action = (String)payload.get("action");
         BaseEventHandler baseEventHandler = (BaseEventHandler)eventHandlerMap.getOrDefault(action, null);

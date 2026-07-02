@@ -1,5 +1,6 @@
 package com.smartmerge.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class PullRequestService {
 
     public PullRequest getPullRequest(long id) {
         return pullRequestRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Id not found"));
+    }
+
+    public List<PullRequest> getPullRequestsByRepoId(int repoId) {
+        return pullRequestRepository.findAllByRepoId(repoId);
     }
 
     public PullRequest savePullRequest(PullRequest pullRequest) {

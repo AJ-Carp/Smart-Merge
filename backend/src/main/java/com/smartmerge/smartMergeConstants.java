@@ -4,7 +4,7 @@ public interface SmartMergeConstants {
     // routes
     String API_PREFIX = "api/v1";
     String PROFILE_ROUTE = API_PREFIX + "/profile";
-    String GITHUB_WEB_HOOK_ROUTE = API_PREFIX + "/webhook";
+    String GITHUB_WEB_HOOK_ROUTE = API_PREFIX + "/webhook/github";
     String REPOSITORY_ROUTE = API_PREFIX + "/repository";
     String PULL_REQUEST_ROUTE = API_PREFIX + "/pull-requests";
     String AUTH_ROUTE = API_PREFIX + "/auth";

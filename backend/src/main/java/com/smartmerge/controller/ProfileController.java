@@ -9,15 +9,16 @@ import com.smartmerge.model.Account;
 import com.smartmerge.model.Profile;
 import com.smartmerge.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import static com.smartmerge.SmartMergeConstants.PROFILE_ROUTE;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping(PROFILE_ROUTE)
 @RestController
 public class ProfileController {
 
     private final ProfileService profileService;
     
-    @GetMapping("/profile")
+    @GetMapping
     public ResponseEntity<Profile> getProfile(@AuthenticationPrincipal Account account) {
         Profile profile = profileService.getProfileByUserId(account.getUserId());
         if (profile == null) {

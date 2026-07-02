@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import static com.smartmerge.SmartMergeConstants.LOGOUT_ROUTE;
 
-@RequestMapping("/api/v1/auth")
+@RequestMapping(LOGOUT_ROUTE)
 @RestController
 public class AuthController {
     
-    @PostMapping("/logout")
+    @PostMapping
     /* Spring sees HttpServletResponse (or HttpServletRequest) in a method signature and 
        automatically injects the raw request/response object for that HTTP call */
     public ResponseEntity<Map<String, String>> logout(HttpServletResponse response) {

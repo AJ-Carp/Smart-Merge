@@ -31,6 +31,7 @@ public class PullReqEventHandler implements BaseEventHandler {
 
     @Override
     public void triggerEvent(Map<String, Object> webhookPayload, String action) {
+
         try {
             Map<String, Object> pullRequestData = (Map<String, Object>)webhookPayload.get("pull_request");
             Map<String, Object> installationData = (Map<String, Object>)webhookPayload.get("installation");
@@ -76,6 +77,7 @@ public class PullReqEventHandler implements BaseEventHandler {
                 pullRequestService.savePullRequest(pullRequest);
 
             } else if (action.equals("closed")) {
+
                 long id = (long)pullRequestData.get("id");
                 boolean merged = (boolean)pullRequestData.get("merged");
                 String closedAt = (String)pullRequestData.get("closed_at");

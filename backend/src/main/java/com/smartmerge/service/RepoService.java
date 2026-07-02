@@ -1,6 +1,8 @@
 package com.smartmerge.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Service;
 import com.smartmerge.model.Repo;
 import com.smartmerge.repository.PullRequestRepository;
@@ -18,6 +20,11 @@ public class RepoService {
     
     public List<Repo> saveAllRepos(List<Repo> repos) {
         return repoRepository.saveAll(repos);
+    }
+
+    public List<Repo> getReposByUserId(int userId) {
+        return repoRepository.findAllByUserId(userId)
+                .orElseThrow(() -> new NoSuchElementException("User Id not found"));
     }
 
     @Transactional
