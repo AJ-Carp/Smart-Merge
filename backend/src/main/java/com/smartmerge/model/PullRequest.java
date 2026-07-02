@@ -24,15 +24,15 @@ public class PullRequest {
 
     private String title;
 
-    private int repoOwnerId;
+    private long repoOwnerId;
 
-    private int authorId;
+    private long authorId;
 
     private String authorName;
 
-    private int repoId;
+    private long repoId;
 
-    private int installationId;
+    private long installationId;
 
     @Enumerated(EnumType.STRING)
     private Status status;

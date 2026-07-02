@@ -46,15 +46,15 @@ public class PullReqEventHandler implements BaseEventHandler {
                 pullRequestService.savePullRequest(pullRequest);
 
                 // get access token
-                int installationId = (int)installationData.get("id");
+                long installationId = (long)installationData.get("id");
                 String url = installationService.getInstallation(installationId).getAccessTokenUrl();
                 String accessToken = tokenService.getInstallationToken(url);
 
                 // collect data needed for service methods
-                int pullNumber = (int)pullRequestData.get("number");
+                long pullNumber = (long)pullRequestData.get("number");
                 String repoOwner = (String)ownerData.get("login");
                 String repoName = (String)repositoryData.get("name");
-                int issueNumber = (int)webhookPayload.get("number");
+                long issueNumber = (long)webhookPayload.get("number");
 
                 // fetch data regarding every changed/added/deleted file in the PR
                 List<Map<String, Object>> fileData = prFilesService.getFiles(accessToken, repoOwner, repoName, pullNumber);
@@ -108,11 +108,11 @@ public class PullReqEventHandler implements BaseEventHandler {
         return PullRequest.builder()
             .id((long)pullRequestData.get("id"))
             .title((String)pullRequestData.get("title"))
-            .repoOwnerId((int)ownerData.get("id"))
-            .authorId((int)userData.get("id"))
+            .repoOwnerId((long)ownerData.get("id"))
+            .authorId((long)userData.get("id"))
             .authorName((String)userData.get("login"))
-            .repoId((int)repositoryData.get("id"))
-            .installationId((int)installationData.get("id"))
+            .repoId((long)repositoryData.get("id"))
+            .installationId((long)installationData.get("id"))
             .status(Status.OPEN)
             // Github returns UTC 
             .openedAt(OffsetDateTime.parse((String)pullRequestData.get("created_at")))

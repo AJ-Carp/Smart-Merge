@@ -13,7 +13,7 @@ public class ReviewService {
 
     private final GithubServiceCaller githubServiceCaller;
     
-    public void postReview(String accessToken, String repoOwner, String repoName, int issueNumber, String mainReview, List<String[]> inlineComments) {
+    public void postReview(String accessToken, String repoOwner, String repoName, long issueNumber, String mainReview, List<String[]> inlineComments) {
         List<CommentDTO.Comments> comments = generateComments(inlineComments);
         CommentDTO review = CommentDTO.builder()
             .body(mainReview)

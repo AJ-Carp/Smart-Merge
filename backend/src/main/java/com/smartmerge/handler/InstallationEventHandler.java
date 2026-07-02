@@ -36,7 +36,7 @@ public class InstallationEventHandler implements BaseEventHandler {
                 installationService.saveInstallationAndRepos(installation, repos);
             } 
             else if (action.equals("deleted")) {
-                int installationId = (int)installationData.get("id");
+                long installationId = (long)installationData.get("id");
 
                 // deletes installation and all associated repos and PRs atomically
                 installationService.deleteInstallation(installationId);
@@ -52,8 +52,8 @@ public class InstallationEventHandler implements BaseEventHandler {
 
     private Installation createInstallation(Map<String, Object> installationData, Map<String, Object> accountData) {
         Installation installation = Installation.builder()
-            .installationId((int)installationData.get("id"))
-            .userId((int)accountData.get("id"))
+            .installationId((long)installationData.get("id"))
+            .userId((long)accountData.get("id"))
             .accessTokenUrl((String)installationData.get("access_tokens_url")).build();
 
         return installation;

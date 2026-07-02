@@ -20,7 +20,7 @@ public class RepoController {
     private final RepoService repoService;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Repo>> getReposByUserId(@PathVariable int userId) {
+    public ResponseEntity<List<Repo>> getReposByUserId(@PathVariable long userId) {
         return ResponseEntity.ok(repoService.getReposByUserId(userId));
     }
 }

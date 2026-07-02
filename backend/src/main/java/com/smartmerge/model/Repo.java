@@ -19,11 +19,11 @@ import lombok.Setter;
 public class Repo {
 
     @Id
-    private int repoId;
+    private long repoId;
 
-    private int userId;
+    private long userId;
 
-    private int installationId;
+    private long installationId;
 
     private String repoName;
 

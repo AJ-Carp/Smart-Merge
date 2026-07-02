@@ -23,17 +23,17 @@ public class InstallationService {
         return installationRepository.save(installation);
     }
 
-    public Installation getInstallation(int id) {
+    public Installation getInstallation(long id) {
         return installationRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("installation not found"));
     }
 
-    public void deleteInstallationById(int id) {
+    public void deleteInstallationById(long id) {
         installationRepository.deleteById(id);
     }
 
     @Transactional
-    public void deleteInstallation(int installationId) {
+    public void deleteInstallation(long installationId) {
         installationRepository.deleteById(installationId);
         repoRepository.deleteAllByInstallationId(installationId);
         pullRequestRepository.deleteAllByInstallationId(installationId);

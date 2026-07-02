@@ -15,9 +15,9 @@ public class RepoMapper {
 
         for (Map<String, Object> repo : repoData) {
             repos.add(Repo.builder()
-                .repoId((int)repo.get("id"))
-                .userId((int)accountData.get("id"))
-                .installationId((int)installationData.get("id"))
+                .repoId((long)repo.get("id"))
+                .userId((long)accountData.get("id"))
+                .installationId((long)installationData.get("id"))
                 .repoName((String)repo.get("full_name"))
                 .isPrivate((boolean)repo.get("private"))
                 .build()

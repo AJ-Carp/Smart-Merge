@@ -19,9 +19,9 @@ import lombok.Setter;
 public class Installation {
 
     @Id
-    private int installationId;
+    private long installationId;
 
-    private int userId;
+    private long userId;
     
     private String accessTokenUrl;
 }

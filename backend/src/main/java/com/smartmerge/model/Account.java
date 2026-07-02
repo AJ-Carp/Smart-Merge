@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Account {
 
     @Id
-    private int userId;
+    private long userId;
 
     private String userLogin;
     

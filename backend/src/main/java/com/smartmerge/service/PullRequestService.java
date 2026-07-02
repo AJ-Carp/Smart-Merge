@@ -19,7 +19,7 @@ public class PullRequestService {
         return pullRequestRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Id not found"));
     }
 
-    public List<PullRequest> getPullRequestsByRepoId(int repoId) {
+    public List<PullRequest> getPullRequestsByRepoId(long repoId) {
         return pullRequestRepository.findAllByRepoId(repoId);
     }
 
@@ -27,7 +27,7 @@ public class PullRequestService {
         return pullRequestRepository.save(pullRequest);
     }
 
-    public void deletePRsByInstallationId(int installationId) {
+    public void deletePRsByInstallationId(long installationId) {
         pullRequestRepository.deleteAllByInstallationId(installationId);
     }
 }

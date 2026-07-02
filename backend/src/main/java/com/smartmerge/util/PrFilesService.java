@@ -19,7 +19,7 @@ public class PrFilesService {
 
     private final GithubServiceCaller githubServiceCaller;
     
-    public List<Map<String, Object>> getFiles(String accessToken, String repoOwner, String repoName, int pullNumber) {
+    public List<Map<String, Object>> getFiles(String accessToken, String repoOwner, String repoName, long pullNumber) {
         String uri = GITHUB_BASE_URL + "/repos/" + repoOwner + "/" + repoName + "/pulls/" + pullNumber + "/files";
         return githubServiceCaller.get(uri, accessToken, new ParameterizedTypeReference<List<Map<String,Object>>>() {});
     }

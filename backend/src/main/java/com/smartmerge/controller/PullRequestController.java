@@ -19,7 +19,7 @@ public class PullRequestController {
     private final PullRequestService pullRequestService;
 
     @GetMapping("/repository/{repoId}")
-    public ResponseEntity<List<PullRequest>> getPullRequestsByRepoId(@PathVariable int repoId) {
+    public ResponseEntity<List<PullRequest>> getPullRequestsByRepoId(@PathVariable long repoId) {
         return ResponseEntity.ok(pullRequestService.getPullRequestsByRepoId(repoId));
     }
 }

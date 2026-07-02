@@ -31,7 +31,7 @@ public class RepoEventHandler implements BaseEventHandler {
             else if (action.equals("removed")) {
                 List<Map<String, Object>> repoData = (List<Map<String, Object>>)webhookPayload.get("repositories_removed");
 
-                List<Integer> repoIds = getRepoIds(repoData);
+                List<Long> repoIds = getRepoIds(repoData);
                 // delete all repos and associated PR's
                 repoService.deleteAllRepos(repoIds);
             }
@@ -44,11 +44,11 @@ public class RepoEventHandler implements BaseEventHandler {
         }
     }
 
-    private List<Integer> getRepoIds(List<Map<String, Object>> repoData) {
-        List<Integer> repoIds = new ArrayList<>();
+    private List<Long> getRepoIds(List<Map<String, Object>> repoData) {
+        List<Long> repoIds = new ArrayList<>();
         
         for (Map<String, Object> repo : repoData) {
-            repoIds.add((int)repo.get("id"));
+            repoIds.add((long)repo.get("id"));
         }
         return repoIds;
     }

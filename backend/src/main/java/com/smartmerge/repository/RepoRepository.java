@@ -8,10 +8,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RepoRepository extends JpaRepository<Repo, Integer> {
+public interface RepoRepository extends JpaRepository<Repo, Long> {
 
     @Transactional
-    void deleteAllByInstallationId(int id);
+    void deleteAllByInstallationId(long id);
 
-    Optional<List<Repo>> findAllByUserId(int userId);
+    Optional<List<Repo>> findAllByUserId(long userId);
 }
