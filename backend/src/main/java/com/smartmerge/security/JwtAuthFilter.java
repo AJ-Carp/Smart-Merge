@@ -71,7 +71,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (Exception e) {
-            log.warn("Error during jwt authentication: {}", e.getMessage());
+            log.warn("Error during jwt authentication", e);
             
             // deleting existing jwt cookie
             // creating new cookie with the same name tells browser to replace the existing one

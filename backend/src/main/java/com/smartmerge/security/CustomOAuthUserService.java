@@ -65,7 +65,7 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
                 }
             }
         } catch (Exception e) {
-            log.error("Failed to fetch user email {}", e.getMessage());
+            log.error("Failed to fetch user email", e);
         }
     }
 }

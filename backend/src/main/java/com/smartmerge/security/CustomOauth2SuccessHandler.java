@@ -75,7 +75,7 @@ public class CustomOauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
             response.sendRedirect(CLIENT_URL + "/call-back");
         } catch (Exception e) {
-            log.error("Error after authentication error={}", e.getMessage());
+            log.error("Error after authentication", e);
 
             // delete jwt cookie and redirect back to frontend
             Cookie cookie = new Cookie("jwt", null); 

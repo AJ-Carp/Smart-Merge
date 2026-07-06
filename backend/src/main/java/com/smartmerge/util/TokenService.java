@@ -40,10 +40,11 @@ public class TokenService {
     public String getInstallationToken(String url) {
         try {
             String jwtToken = generateJwt();
-            Map<String, Object> installationTokenData = githubServiceCaller.post(url, jwtToken, null, new ParameterizedTypeReference<Map<String, Object>>() {});
+            Map<String, Object> installationTokenData = githubServiceCaller.post(url, jwtToken, null, 
+                    new ParameterizedTypeReference<Map<String, Object>>() {});
             return installationTokenData.get("token").toString();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to retrieve installation token");
+            throw new RuntimeException("Failed to retrieve installation token", e);
         }
     }
 

@@ -106,7 +106,7 @@ public class OpenAIService {
             }
 
         } catch (IOException e) {
-            log.error("Error parsing main review", e);
+            log.error("Error parsing inline comments", e);
         }
         return inlineComments;
     }
