@@ -1,6 +1,7 @@
 package com.smartmerge.service;
 
 import org.springframework.stereotype.Service;
+import com.smartmerge.exception.ProfileNotFoundException;
 import com.smartmerge.model.Profile;
 import com.smartmerge.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class ProfileService {
     }
 
     public Profile getProfileByUserId(long id) {
-        return profileRepository.findById(id).orElse(null);
+        return profileRepository.findById(id)
+                .orElseThrow(() -> new ProfileNotFoundException("No profile found for id: " + id));
     }
 }

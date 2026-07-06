@@ -47,7 +47,7 @@ public class CustomOauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
             Profile profile = createProfile(oAuth2User);
 
             Account savedAccount = accountService.saveAccount(account);
-            Profile savedProfile = profileService.saveProfile(profile);
+            profileService.saveProfile(profile);
             log.info("Saved user account for userId={}", savedAccount.getUserId());
 
             // generate jwt's for client API authentication

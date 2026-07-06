@@ -48,7 +48,8 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
 
     private void getUserEmail(String tokenValue, Map<String, Object> userAttributes) {
         try {
-            List<Map<String, Object>> emails = githubServiceCaller.get(GITHUB_EMAIL_ENDPOINT, tokenValue, new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+            List<Map<String, Object>> emails = githubServiceCaller.get(GITHUB_EMAIL_ENDPOINT, tokenValue, 
+                    new ParameterizedTypeReference<List<Map<String, Object>>>() {});
 
             if (emails.isEmpty()) {
                 return;

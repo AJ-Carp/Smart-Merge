@@ -20,10 +20,6 @@ public class ProfileController {
     
     @GetMapping
     public ResponseEntity<Profile> getProfile(@AuthenticationPrincipal Account account) {
-        Profile profile = profileService.getProfileByUserId(account.getUserId());
-        if (profile == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(profile);
+        return ResponseEntity.ok(profileService.getProfileByUserId(account.getUserId()));
     }
 }

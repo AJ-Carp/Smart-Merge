@@ -1,10 +1,8 @@
 package com.smartmerge.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.springframework.stereotype.Service;
-
+import com.smartmerge.exception.PullRequestNotFoundException;
 import com.smartmerge.model.PullRequest;
 import com.smartmerge.repository.PullRequestRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +14,8 @@ public class PullRequestService {
     private final PullRequestRepository pullRequestRepository;
 
     public PullRequest getPullRequest(long id) {
-        return pullRequestRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Id not found"));
+        return pullRequestRepository.findById(id)
+                .orElseThrow(() -> new PullRequestNotFoundException("No pull request found for id: " + id));
     }
 
     public List<PullRequest> getPullRequestsByRepoId(long repoId) {

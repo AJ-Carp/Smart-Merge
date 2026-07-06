@@ -1,8 +1,8 @@
 package com.smartmerge.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
+import com.smartmerge.exception.InstallationNotFoundException;
 import com.smartmerge.model.Installation;
 import com.smartmerge.model.Repo;
 import com.smartmerge.repository.InstallationRepository;
@@ -21,7 +21,7 @@ public class InstallationService {
 
     public Installation getInstallation(long id) {
         return installationRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("installation not found"));
+                .orElseThrow(() -> new InstallationNotFoundException("No installation found for id: " + id));
     }
 
     @Transactional
