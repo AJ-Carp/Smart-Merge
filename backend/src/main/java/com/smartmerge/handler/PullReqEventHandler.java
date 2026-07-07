@@ -62,7 +62,13 @@ public class PullReqEventHandler implements BaseEventHandler {
                 List<String> filesContents = prFilesService.extractFileContents(fileData, accessToken);
                 
                 // package content for AI review. (name, content, patch) in the subarrays respectivly
-                List<String[]> packagedFileContent = prFilesService.packageForReview(fileData, filesContents, patches);    
+                List<String[]> packagedFileContent = prFilesService.packageForReview(fileData, filesContents, patches);
+
+                // nothing to review (PR with no file changes), skip the AI call
+                if (packagedFileContent.isEmpty()) {
+                    log.info("No files to review for PR {}, skipping AI review", pullNumber);
+                    return;
+                }
 
                 // send changes to open AI for review
                 String userPrompt = openAIService.buildUserPrompt(packagedFileContent);

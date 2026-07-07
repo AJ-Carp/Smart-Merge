@@ -89,7 +89,7 @@ public class CustomOauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     public Account createAccount(OAuth2User oauth2User) {
         return Account.builder()
-                .userId(oauth2User.getAttribute("id"))
+                .userId(((Number) oauth2User.getAttribute("id")).longValue())
                 .userLogin(oauth2User.getAttribute("login"))
                 .email(oauth2User.getAttribute("email"))
                 .build();
@@ -97,7 +97,7 @@ public class CustomOauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     public Profile createProfile(OAuth2User oauth2User) {
         return Profile.builder()
-                .userId(oauth2User.getAttribute("id"))
+                .userId(((Number) oauth2User.getAttribute("id")).longValue())
                 .login(oauth2User.getAttribute("login"))
                 .avatarUrl(oauth2User.getAttribute("avatar_url"))
                 .build();

@@ -57,6 +57,7 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
 
             // each email comes as own map
             for (Map<String, Object> map : emails) {
+                System.out.println(map);
                 boolean isPrimary = (boolean) map.get("primary");
                 String email = (String) map.get("email");
 
