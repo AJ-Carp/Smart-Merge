@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.smartmerge.exception.ExceptionResponse;
 import com.smartmerge.exception.InstallationNotFoundException;
@@ -41,6 +42,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleInstallationNotFoundException(InstallationNotFoundException e) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ExceptionResponse> handleResponseStatusException(ResponseStatusException e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getReason(), LocalDateTime.now());
+        return ResponseEntity.status(e.getStatusCode()).body(exceptionResponse);
     }
 
     @ExceptionHandler(Exception.class)
