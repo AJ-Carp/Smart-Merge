@@ -46,15 +46,15 @@ public class PullReqEventHandler implements BaseEventHandler {
                 pullRequestService.savePullRequest(pullRequest);
 
                 // get access token
-                long installationId = (long) installationData.get("id");
+                long installationId = ((Number) installationData.get("id")).longValue();
                 String url = installationService.getInstallation(installationId).getAccessTokenUrl();
                 String accessToken = tokenService.getInstallationToken(url);
 
                 // collect data needed for service methods
-                long pullNumber = (long) pullRequestData.get("number");
+                int pullNumber = (int) pullRequestData.get("number");
                 String repoOwner = (String) ownerData.get("login");
                 String repoName = (String) repositoryData.get("name");
-                long issueNumber = (long) webhookPayload.get("number");
+                int issueNumber = (int) webhookPayload.get("number");
 
                 // fetch data regarding every changed/added/deleted file in the PR
                 List<Map<String, Object>> fileData = prFilesService.getFiles(accessToken, repoOwner, repoName, pullNumber);
@@ -84,7 +84,7 @@ public class PullReqEventHandler implements BaseEventHandler {
 
             } else if (action.equals("closed")) {
 
-                long id = (long) pullRequestData.get("id");
+                long id = ((Number) pullRequestData.get("id")).longValue();
                 boolean merged = (boolean) pullRequestData.get("merged");
                 String closedAt = (String) pullRequestData.get("closed_at");
 
@@ -112,13 +112,13 @@ public class PullReqEventHandler implements BaseEventHandler {
         Map<String, Object> userData
     ) {
         return PullRequest.builder()
-            .id((long) pullRequestData.get("id"))
+            .id(((Number) pullRequestData.get("id")).longValue())
             .title((String) pullRequestData.get("title"))
-            .repoOwnerId((long) ownerData.get("id"))
-            .authorId((long) userData.get("id"))
+            .repoOwnerId(((Number) ownerData.get("id")).longValue())
+            .authorId(((Number) userData.get("id")).longValue())
             .authorName((String) userData.get("login"))
-            .repoId((long) repositoryData.get("id"))
-            .installationId((long) installationData.get("id"))
+            .repoId(((Number) repositoryData.get("id")).longValue())
+            .installationId(((Number) installationData.get("id")).longValue())
             .status(Status.OPEN)
             // Github returns UTC 
             .openedAt(OffsetDateTime.parse((String) pullRequestData.get("created_at")))

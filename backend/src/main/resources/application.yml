@@ -5,9 +5,10 @@ spring:
     active: dev
   config:
     import: optional:classpath:application-secrets.yml
-  jackson:
-    deserialization:
-      use-long-for-ints: true
+  # old way of dealing with jackson class casting exceptions (code will crash at runtime if enabled)
+  # jackson:
+  #   deserialization:
+  #     use-long-for-ints: true
   ai:
     openai:
       api-key: ${openai.api-key}

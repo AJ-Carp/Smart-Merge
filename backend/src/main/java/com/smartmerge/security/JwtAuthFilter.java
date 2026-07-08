@@ -10,7 +10,6 @@ import com.smartmerge.service.AccountService;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -59,8 +58,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 return;
             }
 
-            String email = jwtService.extractSubject(jwtToken);
-            Optional<Account> account = accountService.findByUserEmail(email);
+            long id = Long.valueOf(jwtService.extractSubject(jwtToken));
+            Optional<Account> account = accountService.findByUserId(id);
             if (account.isPresent()) {
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     account.get(), null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))

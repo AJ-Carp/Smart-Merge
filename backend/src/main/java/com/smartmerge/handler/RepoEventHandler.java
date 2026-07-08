@@ -48,7 +48,7 @@ public class RepoEventHandler implements BaseEventHandler {
         List<Long> repoIds = new ArrayList<>();
         
         for (Map<String, Object> repo : repoData) {
-            repoIds.add((long) repo.get("id"));
+            repoIds.add(((Number) repo.get("id")).longValue());
         }
         return repoIds;
     }

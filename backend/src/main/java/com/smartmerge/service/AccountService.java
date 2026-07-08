@@ -12,8 +12,8 @@ public class AccountService {
     
     private final AccountRepository accountRepository;
 
-    public Optional<Account> findByUserEmail(String email) {
-        return accountRepository.findByEmail(email);
+    public Optional<Account> findByUserId(long id) {
+        return accountRepository.findById(id);
     }
 
     public Account saveAccount(Account account) {
