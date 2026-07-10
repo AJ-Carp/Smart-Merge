@@ -18,7 +18,7 @@ import static com.smartmerge.SmartMergeConstants.GITHUB_EMAIL_ENDPOINT;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CustomOAuthUserService extends DefaultOAuth2UserService {
+public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     
     private final GithubServiceCaller githubServiceCaller;
 
@@ -27,7 +27,7 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
        it to the attributes */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        // extract user
+        // super.loadUser makes api call to github with accesstoken to get the user data
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
         String nameAttrKey = userRequest.getClientRegistration()

@@ -23,9 +23,9 @@ public class SecurityConfig {
     @Value("${client.url}")
     private String CLIENT_URL;
 
-    private final CustomOAuthUserService CustomOAuthUserService;
-    private final CustomOauth2SuccessHandler CustomOauth2SuccessHandler;
-    private final JwtAuthFilter JwtAuthFilter;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,17 +38,23 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/webhook/github", "/api/v1/auth/logout").permitAll()
                 .anyRequest().authenticated()
             )
+            // spring handles the github authentication behind the scenes.
+            // GitHub redirects back with an auth code. Spring exchanges it for an access token
+            // and uses the token to get the user info
             .oauth2Login(oauth -> oauth
-                // Step 1 — GitHub redirects back with an auth code. Spring exchanges it for
-                // an access token, then calls customOauthUserService.loadUser() to fetch the
-                // user's GitHub profile.
-                .userInfoEndpoint(userInfo -> userInfo.userService(CustomOAuthUserService))
-                // Step 2 — "on success": Spring calls this only after loadUser() completes
+                // userInfoEndpoint adds a custom step to the end of the github auth process:
+                // Spring calls customOauthUserService.loadUser() to fetch the
+                // user's email if it did not come initially
+                .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+                // "on success": Spring calls this only after loadUser() completes
                 // without error. Here we save the user to the DB, mint a JWT, and set it
                 // as an httpOnly cookie before redirecting to the frontend.
-                .successHandler(CustomOauth2SuccessHandler)
+                .successHandler(customOAuth2SuccessHandler)
+                // could implement AuthenticationFailureHandler but currenlty using springs default page
+                // .failureHandler(null)
+
             );
-        http.addFilterBefore(JwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

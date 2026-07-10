@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import com.smartmerge.model.Account;
 import com.smartmerge.model.Profile;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CustomOauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final AccountService accountService;
     private final ProfileService profileService;
