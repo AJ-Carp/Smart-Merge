@@ -1,1 +1,1 @@
-# SmartMerge
+# Smart Merge
