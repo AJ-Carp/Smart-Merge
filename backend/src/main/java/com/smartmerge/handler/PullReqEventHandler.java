@@ -78,6 +78,7 @@ public class PullReqEventHandler implements BaseEventHandler {
             reviewService.postReview(accessToken, repoOwner, repoName, pullNumber, mainReview, inlineComments);
 
             pullRequest.setReviewedAt(OffsetDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS));
+            pullRequest.setStatus(Status.REVIEWED);
             pullRequestService.savePullRequest(pullRequest);
 
         } else if (action.equals("closed")) {

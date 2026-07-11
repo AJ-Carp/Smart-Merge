@@ -71,6 +71,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             // Since we use JWTs instead of server-side sessions, we don't need it — delete it immediately by setting maxAge to 0.
             Cookie jsessionCookie = new Cookie("JSESSIONID", null);
             jsessionCookie.setPath("/");
+            jsessionCookie.setMaxAge(0);
             response.addCookie(jsessionCookie);
 
             response.sendRedirect(CLIENT_URL + "/call-back");

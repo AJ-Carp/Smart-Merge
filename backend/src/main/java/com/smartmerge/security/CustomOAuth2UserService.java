@@ -38,7 +38,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // get the attributes
         Map<String, Object> userAttributes = new HashMap<>(oAuth2User.getAttributes());
         Object email = userAttributes.get("email");
-        System.out.println((String) email);
 
         if (email == null || ((String) email).isEmpty()) {
             getUserEmail(userRequest.getAccessToken().getTokenValue(), userAttributes);
@@ -58,7 +57,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             // each email comes as own map
             for (Map<String, Object> map : emails) {
-                System.out.println(map);
                 boolean isPrimary = (boolean) map.get("primary");
                 String email = (String) map.get("email");
 

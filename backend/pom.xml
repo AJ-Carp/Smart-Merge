@@ -109,20 +109,6 @@
 			<version>1.78</version>
 		</dependency>
 
-		<!-- Gson (for GitHub webhook payload parsing) -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.10.1</version>
-		</dependency>
-
-		<!-- Caffeine cache (for caching installation access tokens) -->
-		<dependency>
-			<groupId>com.github.ben-manes.caffeine</groupId>
-			<artifactId>caffeine</artifactId>
-			<version>3.1.8</version>
-		</dependency>
-
 		<!-- H2 in-memory DB for tests -->
 		<dependency>
 			<groupId>com.h2database</groupId>

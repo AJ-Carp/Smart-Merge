@@ -62,4 +62,4 @@ build/
 .DS_Store
 
 ######### Documentation #########
-/notes
+/backend/notes
