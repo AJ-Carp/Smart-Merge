@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
+import { useMessage } from '../alerts/MessageContext';
 
 import {
   AuthWrapper,
@@ -13,6 +14,7 @@ import {
 function OAuthCallBack() {
   const { setUser } = useAuth();
   const navigate = useNavigate();
+  const { displayMessage } = useMessage();
 
   useEffect(() => {
     api.get("/profile")
@@ -21,15 +23,17 @@ function OAuthCallBack() {
         setUser(res.data);
         setTimeout(() => {
           navigate("/dashboard");
+          displayMessage("User logged in", "success")
         }, 1000)
       })
       // on error navigate back to login
       .catch(err => {
         setUser(null);
         navigate("/");
+        displayMessage("Failed to login", "error")
         console.log(err)
       });
-  }, [setUser, navigate]);
+  }, [setUser, navigate, displayMessage]);
 
   return (
     <AuthWrapper>
