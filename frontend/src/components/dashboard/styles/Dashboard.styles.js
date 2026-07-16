@@ -12,7 +12,8 @@ export const DashboardWrapper = styled.div`
 `;
 
 export const Sidebar = styled.aside`
-  width: 260px;
+  /* border-box width, so this includes the side padding */
+  width: 300px;
   background: #ffffff;
   backdrop-filter: blur(6px);
   border-right: 1px solid rgba(11, 44, 77, 0.06);
@@ -25,7 +26,7 @@ export const Sidebar = styled.aside`
   z-index: 2;
 
   @media (max-width: 900px) {
-    width: 70px;
+    width: 86px;
     padding: 1.2rem 0.5rem;
   }
 `;

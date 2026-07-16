@@ -72,6 +72,9 @@ export const PRRepoTitle = styled.div`
 export const PRBody = styled.div`
   flex: 1;
   width: 100%;
+  /* without this the side padding gets added on top of the 100% and the list
+     hangs off the right edge */
+  box-sizing: border-box;
   padding: 0 2.2rem 2.2rem 2.2rem;
   @media (max-width: 600px) {
     padding: 0 0.7rem 1.2rem 0.7rem;

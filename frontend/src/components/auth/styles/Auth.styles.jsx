@@ -1,5 +1,25 @@
 import styled, { keyframes } from 'styled-components';
 
+// gentle bob so the logo isn't dead still
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+`;
+
+export const LogoImg = styled.img`
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+  background: transparent;
+  filter: drop-shadow(0 8px 20px rgba(11, 44, 77, 0.18));
+  animation: ${float} 4s ease-in-out infinite;
+  transition: transform 0.18s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+`;
+
 export const AuthWrapper = styled.div`
   min-height: 100vh;
   width: 100vw;
@@ -11,14 +31,20 @@ export const AuthWrapper = styled.div`
 
 export const LoginFormContainer = styled.div`
   background: #ffffff;
-  padding: 3rem 2.5rem;
+  padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(11, 43, 74, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
-  min-width: 320px;
+  /* the logo is width:100%, so the card's width is what actually sizes it */
+  width: 92vw;
+  max-width: 560px;
+
+  @media (max-width: 700px) {
+    padding: 2rem;
+  }
 `;
 
 export const WelcomeHeading = styled.h1`

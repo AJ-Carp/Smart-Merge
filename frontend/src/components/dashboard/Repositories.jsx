@@ -13,7 +13,7 @@ import api from '../api/api';
 import RepoListItem from './RepoListItem';
 
 // our github app slug — whatever comes after /apps/ in its url
-const APP_SLUG = "smart-merge";
+const APP_SLUG = "smartmergeapp";
 
 function Repositories() {
   const { user } = useAuth();

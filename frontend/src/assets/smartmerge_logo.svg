@@ -1,0 +1,40 @@
+<svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mergeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22E6C5"/>
+      <stop offset="55%" stop-color="#4F7DF3"/>
+      <stop offset="100%" stop-color="#9B5CF6"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F7DF3"/>
+      <stop offset="100%" stop-color="#9B5CF6"/>
+    </linearGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- backdrop -->
+  <rect x="0" y="0" width="720" height="220" rx="24" fill="#0C0F16"/>
+
+  <!-- mark: two paths converging into one node -->
+  <g transform="translate(40,30)">
+    <path d="M10,20 C55,20 75,60 80,95" fill="none" stroke="url(#mergeGrad)" stroke-width="13" stroke-linecap="round"/>
+    <path d="M150,20 C105,20 85,60 80,95" fill="none" stroke="url(#mergeGrad)" stroke-width="13" stroke-linecap="round"/>
+    <path d="M80,95 C80,120 80,130 80,150" fill="none" stroke="url(#mergeGrad)" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="80" cy="97" r="11" fill="#0C0F16"/>
+    <circle cx="80" cy="97" r="11" fill="none" stroke="url(#mergeGrad)" stroke-width="4"/>
+    <circle cx="80" cy="97" r="4.5" fill="url(#mergeGrad)" filter="url(#softGlow)"/>
+  </g>
+
+  <!-- wordmark -->
+  <g transform="translate(230,0)">
+    <text x="3" y="63" font-family="'Segoe UI', 'Inter', Arial, sans-serif" font-size="26" font-weight="400" fill="#FFFFFF" letter-spacing="2">Welcome to</text>
+    <text x="0" y="132" font-family="'Segoe UI', 'Inter', Arial, sans-serif" font-size="66" font-weight="600" fill="#EDEFF5" letter-spacing="0.5">Smart<tspan fill="url(#textGrad)" font-weight="800">Merge</tspan></text>
+    <text x="3" y="165" font-family="'Segoe UI', 'Inter', Arial, sans-serif" font-size="18" font-weight="400" fill="#6B7280" letter-spacing="3">CONVERGE. RESOLVE. SHIP.</text>
+  </g>
+</svg>

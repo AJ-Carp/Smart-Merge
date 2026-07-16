@@ -1,10 +1,11 @@
 import {
   AuthWrapper,
   LoginFormContainer,
-  WelcomeHeading,
+  LogoImg,
   GithubButton,
   GithubIcon
 } from './styles/Auth.styles';
+import logo from '../../assets/smartmerge_logo.svg';
 
 function Auth() {
   const handleLogin = () => {
@@ -15,7 +16,7 @@ function Auth() {
     <AuthWrapper>
       <LoginFormContainer>
 
-        <WelcomeHeading>Welcome to SmartMerge</WelcomeHeading>
+        <LogoImg src={logo} alt="SmartMerge Logo" />
 
         <GithubButton onClick={handleLogin}>
           <GithubIcon />
