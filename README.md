@@ -4,6 +4,11 @@
 
 Built with **Java / Spring Boot**, **React**, **PostgreSQL**, and the **OpenAI API** (via Spring AI).
 
+<p align="center">
+  <img src="readme-content/dashboard.png" alt="SmartMerge dashboard — repositories and pull-request history" width="820">
+  <br><em>The SmartMerge dashboard — your connected repositories and the review status of every pull request.</em>
+</p>
+
 ---
 
 ## What it does
@@ -70,8 +75,10 @@ backend/    Spring Boot 3.5 REST API (Java 17, Maven)
 **Entity relationships:** an `Account` (GitHub user) has an `Installation` of the app; an installation covers many `Repo`s; each repo has many `PullRequest`s. Deleting an installation cascades through its repos and PRs in a single transaction.
 
 <p align="center">
-  <img src="readme-diagrams/model-diagram.svg" alt="SmartMerge data model — Account, Profile, Installation, Repo, and PullRequest entities and their relationships" width="720">
+  <img src="readme-content/model-diagram.svg" alt="SmartMerge data model — Account, Profile, Installation, Repo, and PullRequest entities and their relationships" width="720">
 </p>
+
+**Why `Account` and `Profile` are separate:** they're the same user, split by concern. `Account` is the login identity — it carries the email and is loaded as the security principal to authenticate every request, so it stays server-side. `Profile` is just the public display data (username, avatar) that the dashboard reads from `/profile`; because it has no email field, that response can never leak the user's email to the browser.
 
 ---
 
@@ -92,6 +99,18 @@ backend/    Spring Boot 3.5 REST API (Java 17, Maven)
    This parses with a plain line reader and degrades gracefully — one malformed comment line doesn't break the rest of the review.
 
 5. **The review is posted to GitHub** through the create-review API, with each inline comment anchored to its file and line. The PR's database record is updated to `REVIEWED`, and later webhook events flip it to `MERGED` or `CLOSED`.
+
+### Example: a review on a real PR
+
+<p align="center">
+  <img src="readme-content/pr-review-summary.png" alt="SmartMerge's summary review comment on a pull request — a summary of the changes followed by a code review that flags a real bug" width="820">
+  <br><em>The summary comment SmartMerge posts when a PR is opened — an overview of the changes plus a code review.</em>
+</p>
+
+<p align="center">
+  <img src="readme-content/pr-review-inline.png" alt="SmartMerge inline review comments anchored to the exact changed lines in the diff" width="820">
+  <br><em>Inline comments land on the exact lines they reference — including the caught <code>total = n</code> → <code>total += n</code> bug.</em>
+</p>
 
 ---
 
