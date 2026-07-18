@@ -21,7 +21,7 @@ public class Account {
     @Id
     private long userId;
 
-    private String userLogin;
+    private String login;
     
     private String email;
 }

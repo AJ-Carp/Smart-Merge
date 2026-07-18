@@ -91,7 +91,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
     public Account createAccount(OAuth2User oauth2User) {
         return Account.builder()
                 .userId(((Number) oauth2User.getAttribute("id")).longValue())
-                .userLogin(oauth2User.getAttribute("login"))
+                .login(oauth2User.getAttribute("login"))
                 .email(oauth2User.getAttribute("email"))
                 .build();
     }
