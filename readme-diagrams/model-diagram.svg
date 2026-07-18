@@ -1,0 +1,73 @@
+<svg viewBox="0 0 800 717" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="800" height="717" fill="#101216"/>
+<text x="400.0" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">SmartMerge &#8212; Data Model</text>
+<line x1="190.0" y1="176" x2="190.0" y2="266" stroke="#6e7681" stroke-width="1.6"/>
+<rect x="193.0" y="212.5" width="74.0" height="17" fill="#101216"/>
+<text x="230.0" y="225.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">1  —  0..1</text>
+<line x1="190.0" y1="382" x2="190.0" y2="472" stroke="#6e7681" stroke-width="1.6"/>
+<rect x="193.0" y="418.5" width="74.0" height="17" fill="#101216"/>
+<text x="230.0" y="431.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">1  —  0..*</text>
+<line x1="340" y1="118.0" x2="460" y2="118.0" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="6,4"/>
+<rect x="353.4" y="87.5" width="93.2" height="17" fill="#101216"/>
+<text x="400.0" y="100.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">shared userId</text>
+<polyline points="340,552.0 400.0,552.0 400.0,430 460,430" fill="none" stroke="#6e7681" stroke-width="1.6"/>
+<rect x="363.0" y="523.5" width="74.0" height="17" fill="#101216"/>
+<text x="400.0" y="536.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">1  —  0..*</text>
+<rect x="40" y="60" width="300" height="116" rx="6" fill="#1b1f27" stroke="#30363d" stroke-width="1.5"/>
+<path d="M 40 66 Q 40 60 46 60 L 334 60 Q 340 60 340 66 L 340 92 L 40 92 Z" fill="#4f7df3"/>
+<text x="190.0" y="81.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#ffffff">Account</text>
+<circle cx="56" cy="104" r="4" fill="#22e6c5"/>
+<text x="68" y="108" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="700" fill="#22e6c5">userId : long</text>
+<line x1="50" y1="116" x2="330" y2="116" stroke="#30363d" stroke-width="1"/>
+<text x="68" y="136" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">login : String</text>
+<text x="68" y="158" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">email : String</text>
+<rect x="460" y="60" width="300" height="116" rx="6" fill="#1b1f27" stroke="#30363d" stroke-width="1.5"/>
+<path d="M 460 66 Q 460 60 466 60 L 754 60 Q 760 60 760 66 L 760 92 L 460 92 Z" fill="#9b5cf6"/>
+<text x="610.0" y="81.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#ffffff">Profile</text>
+<circle cx="476" cy="104" r="4" fill="#22e6c5"/>
+<text x="488" y="108" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="700" fill="#22e6c5">userId : long</text>
+<line x1="470" y1="116" x2="750" y2="116" stroke="#30363d" stroke-width="1"/>
+<text x="488" y="136" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">login : String</text>
+<text x="488" y="158" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">avatarUrl : String</text>
+<rect x="40" y="266" width="300" height="116" rx="6" fill="#1b1f27" stroke="#30363d" stroke-width="1.5"/>
+<path d="M 40 272 Q 40 266 46 266 L 334 266 Q 340 266 340 272 L 340 298 L 40 298 Z" fill="#4f7df3"/>
+<text x="190.0" y="287.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#ffffff">Installation</text>
+<circle cx="56" cy="310" r="4" fill="#22e6c5"/>
+<text x="68" y="314" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="700" fill="#22e6c5">installationId : long</text>
+<line x1="50" y1="322" x2="330" y2="322" stroke="#30363d" stroke-width="1"/>
+<text x="68" y="342" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">userId : long</text>
+<text x="68" y="364" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">accessTokenUrl : String</text>
+<rect x="40" y="472" width="300" height="160" rx="6" fill="#1b1f27" stroke="#30363d" stroke-width="1.5"/>
+<path d="M 40 478 Q 40 472 46 472 L 334 472 Q 340 472 340 478 L 340 504 L 40 504 Z" fill="#4f7df3"/>
+<text x="190.0" y="493.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#ffffff">Repo</text>
+<circle cx="56" cy="516" r="4" fill="#22e6c5"/>
+<text x="68" y="520" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="700" fill="#22e6c5">repoId : long</text>
+<line x1="50" y1="528" x2="330" y2="528" stroke="#30363d" stroke-width="1"/>
+<text x="68" y="548" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">userId : long</text>
+<text x="68" y="570" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">installationId : long</text>
+<text x="68" y="592" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">repoName : String</text>
+<text x="68" y="614" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">isPrivate : boolean</text>
+<rect x="460" y="266" width="300" height="314" rx="6" fill="#1b1f27" stroke="#30363d" stroke-width="1.5"/>
+<path d="M 460 272 Q 460 266 466 266 L 754 266 Q 760 266 760 272 L 760 298 L 460 298 Z" fill="#4f7df3"/>
+<text x="610.0" y="287.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#ffffff">PullRequest</text>
+<circle cx="476" cy="310" r="4" fill="#22e6c5"/>
+<text x="488" y="314" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="700" fill="#22e6c5">id : long</text>
+<line x1="470" y1="322" x2="750" y2="322" stroke="#30363d" stroke-width="1"/>
+<text x="488" y="342" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">title : String</text>
+<text x="488" y="364" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">repoOwnerId : long</text>
+<text x="488" y="386" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">authorId : long</text>
+<text x="488" y="408" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">authorName : String</text>
+<text x="488" y="430" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">repoId : long</text>
+<text x="488" y="452" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">installationId : long</text>
+<text x="488" y="474" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">status : Status</text>
+<text x="488" y="496" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">openedAt : OffsetDateTime</text>
+<text x="488" y="518" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">reviewedAt : OffsetDateTime</text>
+<text x="488" y="540" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">closedAt : OffsetDateTime</text>
+<text x="488" y="562" font-family="Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9">url : String</text>
+<circle cx="44" cy="683" r="4" fill="#22e6c5"/>
+<text x="74" y="687" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">Primary key</text>
+<line x1="173.3" y1="683" x2="199.3" y2="683" stroke="#6e7681" stroke-width="1.6"/>
+<text x="207.3" y="687" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">Owning relationship (foreign key)</text>
+<line x1="445.2" y1="683" x2="471.2" y2="683" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="6,4"/>
+<text x="479.2" y="687" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa5b1">Shared identifier (same userId)</text>
+</svg>
